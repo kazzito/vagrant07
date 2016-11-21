@@ -2,3 +2,4 @@ vagrant
 ===============
 
 janusのvagrantファイルリポジトリ
+test
