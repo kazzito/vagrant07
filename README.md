@@ -23,7 +23,7 @@ https://www.vagrantup.com/downloads.html
 
 > vagrant plugin install vagrant-omnibus
 
-* creator_uidを変更
+### creator_uidを変更
 
 > .vagrant/machines/default/virtualbox/creator_uid
 
