@@ -1,0 +1,33 @@
+{
+  "name": "yum-remi",
+  "description": "Installs/Configures yum-remi repos",
+  "long_description": "[![Build Status](https://travis-ci.org/psyreactor/yum-remi-cookbook.svg?branch=master)](https://travis-ci.org/psyreactor/yum-remi-cookbook)\n\nYum Remi Cookbook\n===============\n\nThis cookbook install Remi repo Enterprise Linux.\n\n####[Remi Repo](http://http://rpms.famillecollet.com/)\n\n\"Providing the  latest versions of the PHP stack, and some other software, to the Fedora and Enterprise Linux (RHEL, CentOS, Oracle, Scientific Linux, ...) users. It mainly contains :\n\n    packages I also maintains in Fedora\n    backports of packages available in Fedora development version\n    some packages incompatible with Fedora policy\n    some packages in progress before being submitted to Fedora repository\n    (nearly) vanilla versions\n\"\n\nRequirements\n------------\n#### Cookbooks:\n\n- yum - https://github.com/opscode-cookbooks/yum\n\nThe following platforms and versions are tested and supported using Opscode's test-kitchen.\n\n- CentOS 5.8, 6.3\n\nThe following platform families are supported in the code, and are assumed to work based on the successful testing on CentOS.\n\n\n- Red Hat (rhel)\n- Fedora\n- Amazon Linux\n\n#### yum-remi:default\n##### Basic Config\n<table>\n  <tr>\n    <th>Key</th>\n    <th>Type</th>\n    <th>Description</th>\n    <th>Default</th>\n  </tr>\n  <tr>\n    <td><tt>node['yum'][repo]['enabled']</tt></td>\n    <td>Boolean</td>\n    <td>Enable/Disable Repo</td>\n    <td><tt>true</tt></td>\n  </tr>\n  <tr>\n    <td><tt>node['yum'][repo]['gpgcheck']</tt></td>\n    <td>Boolean</td>\n    <td>check GPG Cert</td>\n    <td><tt>true</tt></td>\n  </tr>\n  <tr>\n    <td><tt>node['yum'][repo]['managed']</tt></td>\n    <td>Boolean</td>\n    <td>Enable/Disable managed</td>\n    <td><tt>true</tt></td>\n  </tr>\n</table>\n\nrepo = w%(remi remi-test remi-php55 remi-php56)\n\nUsage\n-----\n#### yum-remi::default\nJust include `yum-remi` in your node's `run_list`:\n\n```json\n{\n  \"name\":\"my_node\",\n  \"run_list\": [\n    \"recipe[yum-remi]\"\n  ]\n}\n```\n\nExample enable test repo\n\n```json\n\"default_attributes\": {\n  \"yum\": {\n    \"remi-test\": {\n      \"gpgcheck\": true,\n      \"managed\": true,\n      \"enabled\": true\n    }\n  }\n}\n```\n\nContributing\n------------\n\n1. Fork the repository on Github\n2. Create a named feature branch (like `add_component_x`)\n3. Write your change\n4. Write tests for your change (if applicable)\n5. Run the tests, ensuring they all pass\n6. Submit a Pull Request using Github\n\n[More details](https://github.com/psyreactor/yum-remi-cookbook/blob/master/CONTRIBUTING.md)\n\nLicense and Authors\n-------------------\nAuthors:\nLucas Mariani (Psyreactor)\n- [marianiluca@gmail.com](mailto:marianiluca@gmail.com)\n- [https://github.com/psyreactor](https://github.com/psyreactor)\n- [http://blog.psyreactor.com.ar](http://blog.psyreactor.com.ar)\n\n",
+  "maintainer": "Mariani Lucas",
+  "maintainer_email": "marianilucas@gmail.com",
+  "license": "Apache 2.0",
+  "platforms": {
+    "centos": ">= 5.0",
+    "redhat": ">= 5.0",
+    "fedora": ">= 18.0"
+  },
+  "dependencies": {
+    "yum": ">= 0.0.0"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.1.0"
+}
