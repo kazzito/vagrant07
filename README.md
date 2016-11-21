@@ -3,23 +3,21 @@ vagrant
 
 # janusのvagrantファイルリポジトリ
 
-## ローカル環境の作り方
+## ローカル環境の作り方(Windows)
 
-### Windows
-
-* virtualBoxインストール
+### virtualBoxインストール
 
 https://www.virtualbox.org/
 
 これを書いた時は5.1.8
 
-* vagrantインストール
+### vagrantインストール
 
 https://www.vagrantup.com/downloads.html
 
 これをk書いた時は1.8.7
 
-* vagrantのプラグインをインストール
+### vagrantのプラグインをインストール
 
 > vagrant plugin install vagrant-berkshelf
 
@@ -31,9 +29,8 @@ https://www.vagrantup.com/downloads.html
 
 を開いて内容0にする
 
-* gitからvagrantリポジトリをcloneする
+### gitからvagrantリポジトリをcloneする
 
-
-* vagrant up
+### vagrant up
 
 > vagrant up
