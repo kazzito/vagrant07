@@ -31,6 +31,9 @@ https://www.vagrantup.com/downloads.html
 
 を開いて内容0にする
 
+* gitからvagrantリポジトリをcloneする
+
+
 * vagrant up
 
 > vagrant up
