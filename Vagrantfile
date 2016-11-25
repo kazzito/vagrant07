@@ -106,6 +106,8 @@ Vagrant.configure("2") do |config|
   #   apt-get install -y apache2
   # SHELL
 
+  #TEST
+
   config.vm.provision "chef_solo" do |chef|
     chef.cookbooks_path = ["cookbooks", "site-cookbooks"]
 
