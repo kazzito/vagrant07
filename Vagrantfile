@@ -6,6 +6,10 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
+
+  $is_windows = RbConfig::CONFIG['host_os'] =~ /mswin|msys|mingw|cygwin|bccwin/i
+  $is_osx = RbConfig::CONFIG['host_os'] =~ /darwin/i
+
   # The most common configuration options are documented and commented below.
   # For a complete reference, please see the online documentation at
   # https://docs.vagrantup.com.
@@ -14,7 +18,23 @@ Vagrant.configure("2") do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "bento/centos-6.7"
   config.vm.hostname = "januslocal"
-  config.vm.network "forwarded_port", guest: 80, host: 8888
+
+  if $is_windows then
+    config.vm.network "forwarded_port", guest: 80, host: 80
+  else
+    config.vm.network "forwarded_port", guest: 80, host: 10080
+
+    config.trigger.after [:provision, :up, :reload] do
+      system('echo "rdr pass on lo0 inet proto tcp from any to 127.0.0.1 port 80 -> 127.0.0.1 port 10080" | sudo pfctl -ef - > /dev/null 2>&1')
+      system('echo "set packet filter 127.0.0.1:80 -> 127.0.0.1:10080"')
+    end
+
+    config.trigger.after [:halt, :destroy] do
+      system("sudo pfctl -df /etc/pf.conf > /dev/null 2>&1")
+      system('echo "reset packet filter"')
+    end
+  end
+
   config.vm.network "forwarded_port", guest: 8080, host: 8080
   config.vm.network "private_network", ip: "192.168.33.10"
   config.vm.provider "virtualbox" do |vb|
