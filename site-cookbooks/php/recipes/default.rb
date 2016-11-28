@@ -42,3 +42,13 @@ end
 service "httpd" do
   action [ :restart ]
 end
+
+bash 'install_composer' do
+  not_if { File.exists?("/usr/local/bin/composer") }
+  user 'root'
+  cwd '/tmp'
+  code <<-EOH
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/tmp
+    mv /tmp/composer.phar /usr/local/bin/composer
+  EOH
+end
