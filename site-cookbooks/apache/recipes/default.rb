@@ -8,7 +8,7 @@
 #
 
 package "httpd" do
-  action :install
+  action [ :install, :upgrade ]
 end
 
 service "httpd" do
