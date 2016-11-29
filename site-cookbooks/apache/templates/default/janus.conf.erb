@@ -1,0 +1,14 @@
+<VirtualHost *:80>
+    DocumentRoot /var/www/html/appRoot/webroot
+    ServerName januslocal
+
+    ErrorLog logs/januslocal-error_log
+    CustomLog logs/januslocal-access_log common
+
+    <Directory "/var/www/html/janusApp">
+        Options FollowSymLinks
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+    </Directory>
+</VirtualHost>

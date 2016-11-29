@@ -11,6 +11,11 @@ package "httpd" do
   action [ :install, :upgrade ]
 end
 
+template "janus.conf" do
+  path "/etc/httpd/conf.d/janus.conf"
+  source "janus.conf.erb"
+end
+
 service "httpd" do
   action [ :enable, :start ]
 end
