@@ -44,7 +44,7 @@ Vagrant.configure("2") do |config|
 
   config.omnibus.chef_version = :latest
 
-  config.vm.synced_folder ".", "/var/www/html",
+  config.vm.synced_folder "../shareApp/", "/var/www/html",
     :create => true, 
     :owner => 'vagrant', 
     :group => 'vagrant', 
@@ -114,6 +114,7 @@ Vagrant.configure("2") do |config|
     #chef.add_recipe "apache"
     chef.add_recipe "yum-epel"
     chef.add_recipe "yum-remi"
+    chef.add_recipe "git"
     chef.add_recipe "apache"
     chef.add_recipe "php"
     chef.add_recipe "mysql"
