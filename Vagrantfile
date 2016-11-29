@@ -44,7 +44,7 @@ Vagrant.configure("2") do |config|
 
   config.omnibus.chef_version = :latest
 
-  config.vm.synced_folder "../shareApp/", "/var/www/html",
+  config.vm.synced_folder "../appRoot/", "/var/www/html",
     :create => true, 
     :owner => 'vagrant', 
     :group => 'vagrant', 
