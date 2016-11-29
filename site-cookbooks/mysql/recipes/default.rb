@@ -37,36 +37,15 @@ service "mysqld" do
   action [ :enable, :restart ]
 end
 
-=begin
-
-# secure install
-root_password = node["mysql"]["root_password"]
-execute "secure_install" do
-  command "/usr/bin/mysql -u root < #{chef::config[:file_cache_path]}/secure_install.sql"
-  action :nothing
-  only_if "/usr/bin/mysql -u root -e 'show databases;'"
-end
-
-template "#{chef::config[:file_cache_path]}/secure_install.sql" do
-  owner "root"
-  group "root"
-  mode 0644
-  source "secure_install.sql.erb"
-  variables({
-    :root_password => root_password,
-  })
-  notifies :run, "execute[secure_install]", :immediately
-end
-
 # create database
 db_name = node["mysql"]["db_name"]
 execute "create_db" do
-  command "/usr/bin/mysql -u root -p#{root_password} < #{chef::config[:file_cache_path]}/create_db.sql"
+  command "/usr/bin/mysql < #{Chef::Config[:file_cache_path]}/create_db.sql"
   action :nothing
-  not_if "/usr/bin/mysql -u root -p#{root_password} -D #{db_name}"
+  not_if "/usr/bin/mysql -D #{db_name}"
 end
 
-template "#{chef::config[:file_cache_path]}/create_db.sql" do
+template "#{Chef::Config[:file_cache_path]}/create_db.sql" do
   owner "root"
   group "root"
   mode 0644
@@ -81,12 +60,12 @@ end
 user_name     = node["mysql"]["user"]["name"]
 user_password = node["mysql"]["user"]["password"]
 execute "create_user" do
-  command "/usr/bin/mysql -u root -p#{root_password} < #{chef::config[:file_cache_path]}/create_user.sql"
+  command "/usr/bin/mysql < #{Chef::Config[:file_cache_path]}/create_user.sql"
   action :nothing
   not_if "/usr/bin/mysql -u #{user_name} -p#{user_password} -D #{db_name}"
 end
 
-template "#{chef::config[:file_cache_path]}/create_user.sql" do
+template "#{Chef::Config[:file_cache_path]}/create_user.sql" do
   owner "root"
   group "root"
   mode 0644
@@ -98,5 +77,3 @@ template "#{chef::config[:file_cache_path]}/create_user.sql" do
   })
   notifies :run, "execute[create_user]", :immediately
 end
-
-=end
