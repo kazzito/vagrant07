@@ -44,13 +44,16 @@ Vagrant.configure("2") do |config|
 
   config.omnibus.chef_version = :latest
 
-  config.vm.synced_folder "../appRoot/", "/var/www/html",
-    :create => true, 
-    :owner => 'vagrant', 
-    :group => 'vagrant', 
-    :mount_options => ['dmode=777', 'fmode=666']
+  if $is_windows then
+    config.vm.synced_folder "../appRoot/", "/var/www/html",
+      :create => true, 
+      :owner => 'vagrant', 
+      :group => 'vagrant', 
+      :mount_options => ['dmode=777', 'fmode=666']
+  else
+    config.vm.synced_folder "../appRoot/", "/var/www/html", type: "nfs"
+  end
   
-
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
