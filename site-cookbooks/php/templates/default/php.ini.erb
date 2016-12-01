@@ -1657,14 +1657,14 @@ mssql.secure_connection = Off
 ; language for internal character representation.
 ; This affects mb_send_mail() and mbstrig.detect_order.
 ; http://php.net/mbstring.language
-;mbstring.language = Japanese
+mbstring.language = Japanese
 
 ; Use of this INI entry is deprecated, use global internal_encoding instead.
 ; internal/script encoding.
 ; Some encoding cannot work as internal encoding. (e.g. SJIS, BIG5, ISO-2022-*)
 ; If empty, default_charset or internal_encoding or iconv.internal_encoding is used.
 ; The precedence is: default_charset < internal_encoding < iconv.internal_encoding
-;mbstring.internal_encoding =
+mbstring.internal_encoding = UTF-8
 
 ; Use of this INI entry is deprecated, use global input_encoding instead.
 ; http input encoding.
@@ -1672,7 +1672,7 @@ mssql.secure_connection = Off
 ; If empty, default_charset or input_encoding or mbstring.input is used.
 ; The precedence is: default_charset < intput_encoding < mbsting.http_input
 ; http://php.net/mbstring.http-input
-;mbstring.http_input =
+mbstring.http_input = pass
 
 ; Use of this INI entry is deprecated, use global output_encoding instead.
 ; http output encoding.
@@ -1682,7 +1682,7 @@ mssql.secure_connection = Off
 ; To use an output encoding conversion, mbstring's output handler must be set
 ; otherwise output encoding conversion cannot be performed.
 ; http://php.net/mbstring.http-output
-;mbstring.http_output =
+mbstring.http_output = pass
 
 ; enable automatic encoding translation according to
 ; mbstring.internal_encoding setting. Input chars are
@@ -1690,7 +1690,7 @@ mssql.secure_connection = Off
 ; Note: Do _not_ use automatic encoding translation for
 ;       portable libs/applications.
 ; http://php.net/mbstring.encoding-translation
-;mbstring.encoding_translation = Off
+mbstring.encoding_translation = UTF-8
 
 ; automatic encoding detection order.
 ; "auto" detect order is changed according to mbstring.language
@@ -1700,7 +1700,7 @@ mssql.secure_connection = Off
 ; substitute_character used when character cannot be converted
 ; one from another
 ; http://php.net/mbstring.substitute-character
-;mbstring.substitute_character = none
+mbstring.substitute_character = none
 
 ; overload(replace) single byte functions by mbstring functions.
 ; mail(), ereg(), etc are overloaded by mb_send_mail(), mb_ereg(),
@@ -1711,11 +1711,11 @@ mssql.secure_connection = Off
 ; 2: Overload str*() functions
 ; 4: Overload ereg*() functions
 ; http://php.net/mbstring.func-overload
-;mbstring.func_overload = 0
+mbstring.func_overload = 0
 
 ; enable strict encoding detection.
 ; Default: Off
-;mbstring.strict_detection = On
+mbstring.strict_detection = Off
 
 ; This directive specifies the regex pattern of content types for which mb_output_handler()
 ; is activated.
