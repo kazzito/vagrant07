@@ -51,7 +51,16 @@ Vagrant.configure("2") do |config|
       :group => 'vagrant', 
       :mount_options => ['dmode=777', 'fmode=666']
   else
-    config.vm.synced_folder "../appRoot/", "/var/www/html", type: "nfs"
+    #config.vm.synced_folder "../appRoot/", "/var/www/html", type: "nfs"
+    config.bindfs.default_options = {
+      force_user:   'vagrant',
+      force_group:  'vagrant',
+      perms:        'u=rwX:g=rwX:o=rwX',
+      create_with_perms:'u=rwx:g=rwx:o=rwx'
+    }
+    config.vm.synced_folder "../appRoot/", "/home/vagrant/sync_nfs", type: "nfs"
+    config.bindfs.bind_folder "/home/vagrant/sync_nfs", "/var/www/html", o:"nonempty"
+    #config.bindfs.bind_folder "/var/www/html", "/home/vagrant/sync_nfs", :owner => "1111", :group => "1111", :'create-as-user' => true, :perms => "u=rwx:g=rwx:o=rwx", :'create-with-perms' => "u=rwx:g=rwx:o=rwx", :'chown-ignore' => true, :'chgrp-ignore' => true, :'chmod-ignore' => true
   end
   
   # Disable automatic box update checking. If you disable this, then
