@@ -124,6 +124,7 @@ Vagrant.configure("2") do |config|
     chef.cookbooks_path = ["cookbooks", "site-cookbooks"]
 
     #chef.add_recipe "apache"
+    chef.add_recipe "common"
     chef.add_recipe "yum-epel"
     chef.add_recipe "yum-remi"
     chef.add_recipe "git"
