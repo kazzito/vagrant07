@@ -49,7 +49,7 @@ Vagrant.configure("2") do |config|
       :create => true, 
       :owner => 'vagrant', 
       :group => 'vagrant', 
-      :mount_options => ['dmode=777', 'fmode=666']
+      :mount_options => ['dmode=777', 'fmode=777']
   else
     #config.vm.synced_folder "../appRoot/", "/var/www/html", type: "nfs"
     config.bindfs.default_options = {
