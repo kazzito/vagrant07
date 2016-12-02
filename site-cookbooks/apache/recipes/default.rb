@@ -27,6 +27,7 @@ bash "backup janus.conf" do
   code <<-EOC
     cp -p /etc/httpd/conf.d/janus.conf /tmp/janus.conf.`date "+%Y%m%d_%H%M%S"`
   EOC
+  only_if { File.exists?("/etc/httpd/conf.d/janus.conf") }
 end
 
 template "janus.conf" do
