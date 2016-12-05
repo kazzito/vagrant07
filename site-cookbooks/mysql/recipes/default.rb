@@ -25,12 +25,25 @@ yum_package "mysql-community-server" do
   flush_cache [:before]
 end
 
-#bash "skip-grant-tables" do
-#  code <<-EOC
-#    echo "skip-grant-tables" >> /etc/my.cnf
-#  EOC
-#  not_if "cat /etc/my.cnf | grep 'skip-grant-tables'"
-#end
+bash "skip-grant-tables" do
+  code <<-EOC
+    echo "skip-grant-tables" >> /etc/my.cnf
+  EOC
+  not_if "cat /etc/my.cnf | grep 'skip-grant-tables'"
+end
+
+service "mysqld" do
+  supports :status => true, :restart => true, :reload => true
+  action [ :enable, :restart ]
+end
+
+bash "timezone import" do
+  code <<-EOC
+    /usr/bin/mysql_tzinfo_to_sql /usr/share/zoneinfo > /home/vagrant/timezone.sql
+    mysql -Dmysql < /home/vagrant/timezone.sql
+  EOC
+  not_if { File.exists?("/home/vagrant/timezone.sql") }
+end
 
 bash "backup my.cnf" do
   code <<-EOC
@@ -48,11 +61,12 @@ bash "log dir" do
     mkdir /var/log/mysql
     chmod -R 777 /var/log/mysql
   EOC
+  not_if { File.exists?("/var/log/mysql") }
 end
 
 service "mysqld" do
   supports :status => true, :restart => true, :reload => true
-  action [ :enable, :restart ]
+  action [ :restart ]
 end
 
 # create database
