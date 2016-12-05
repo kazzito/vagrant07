@@ -25,11 +25,29 @@ yum_package "mysql-community-server" do
   flush_cache [:before]
 end
 
-bash "skip-grant-tables" do
+#bash "skip-grant-tables" do
+#  code <<-EOC
+#    echo "skip-grant-tables" >> /etc/my.cnf
+#  EOC
+#  not_if "cat /etc/my.cnf | grep 'skip-grant-tables'"
+#end
+
+bash "backup my.cnf" do
   code <<-EOC
-    echo "skip-grant-tables" >> /etc/my.cnf
+    cp -p /etc/my.cnf /etc/my.cnf.org.`date "+%Y%m%d_%H%M%S"`
   EOC
-  not_if "cat /etc/my.cnf | grep 'skip-grant-tables'"
+end
+
+template "my.cnf" do
+  path "/etc/my.cnf"
+  source "my.cnf.erb"
+end
+
+bash "log dir" do
+  code <<-EOC
+    mkdir /var/log/mysql
+    chmod -R 777 /var/log/mysql
+  EOC
 end
 
 service "mysqld" do

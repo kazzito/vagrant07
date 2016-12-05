@@ -14,3 +14,9 @@ bash "set_localtime" do
   EOC
   not_if "strings /etc/localtime | grep 'JST'"
 end
+
+bash "set_log_permission" do
+  code <<-EOC
+    chmod -R 777 /var/log/
+  EOC
+end

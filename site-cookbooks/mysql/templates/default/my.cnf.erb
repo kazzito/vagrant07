@@ -1,0 +1,73 @@
+# For advice on how to change settings please see
+# http://dev.mysql.com/doc/refman/5.7/en/server-configuration-defaults.html
+
+[mysqld]
+#
+# Remove leading # and set to the amount of RAM for the most important data
+# cache in MySQL. Start at 70% of total RAM for dedicated server, else 10%.
+# innodb_buffer_pool_size = 128M
+#
+# Remove leading # to turn on a very important data integrity option: logging
+# changes to the binary log between backups.
+# log_bin
+#
+# Remove leading # to set options mainly useful for reporting servers.
+# The server defaults are faster for transactions and fast SELECTs.
+# Adjust sizes as needed, experiment to find the optimal values.
+# join_buffer_size = 128M
+# sort_buffer_size = 2M
+# read_rnd_buffer_size = 2M
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+
+log-error=/var/log/mysql/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid
+
+# rootでpassなしに
+skip-grant-tables
+
+# 文字セット指定
+character-set-server = utf8
+collation-server = utf8_general_ci
+
+# 基本(Default)のストレージエンジン
+# Mysqlサーバーが支援するストーレジエンジンの中で一つを選択できる。
+# サーバーが支援するストレージエンジンは'SHOW ENGINES'コマンドで確認できる Aria
+default-storage-engine  = innodb
+
+# サーバーのポート指定
+port = 3306
+
+# Index処理されない Full Scan のようなQueryについてのLog処理有無を決める。
+# Default 0
+# Dynamic の設定は可能だ。 SET GLOBAL log-queries-not-using-indexes = 1
+log-queries-not-using-indexes = 1
+ 
+# Slow Query Logを記録するかどうかを決める。 log_output の値が NONE なら、この値は無視される。(ON/OFF)
+# Default 0
+# Dynamic の設定は可能だ。 SET GLOBAL slow_query_log = 0
+slow_query_log = 1
+
+# Slow Queryを記録する時間。この時間より大きいと記録される。(この時間が過ぎても処理が終わらないと)
+# 値は 0 ~ 10 の間だ
+# Default 10.
+# Dynamic で設定も可能だ。 SET GLOBAL long_query_time = 1
+long_query_time = 0.5
+
+# Slow Query Logファイルを指定
+# ログファイル名を設定しないと host_name-slow.log になる
+# Dynamic で設定も可能。 SET GLOBAL slow_query_log_file = /usr/local/mysql/current/logs/slow_query.log
+slow_query_log_file = /var/log/mysql/slow_query.log
+
+default-time-zone = 'Asia/Tokyo'
+
+[mysql]
+ 
+# mysql で、Defaultの文字セット指定
+default-character-set = utf8
+
+[client]
+port = 3306
