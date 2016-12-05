@@ -1,0 +1,14 @@
+<VirtualHost *:80>
+    DocumentRoot /var/www/html/bookmarker/webroot
+    ServerName bookmarker
+
+    ErrorLog logs/bookmarker-error_log
+    CustomLog logs/bookmarker-access_log common
+
+    <Directory "/var/www/html/bookmarker/webroot">
+        Options FollowSymLinks
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+</VirtualHost>

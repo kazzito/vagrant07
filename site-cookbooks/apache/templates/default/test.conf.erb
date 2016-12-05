@@ -1,0 +1,14 @@
+<VirtualHost *:80>
+    DocumentRoot /var/www/html/testApp/webroot
+    ServerName testlocal
+
+    ErrorLog logs/testlocal-error_log
+    CustomLog logs/testlocal-access_log common
+
+    <Directory "/var/www/html/testApp/webroot">
+        Options FollowSymLinks
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+</VirtualHost>
