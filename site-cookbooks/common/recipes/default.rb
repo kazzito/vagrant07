@@ -20,3 +20,16 @@ bash "set_log_permission" do
     chmod -R 777 /var/log/
   EOC
 end
+
+bash "selinux_off" do
+  code <<-EOC
+    setenforce 0
+  EOC
+  not_if "getenforce | grep 'disabled'"
+end
+
+template "selinux_config" do
+  path "/etc/selinux/config"
+  source "selinux_config.erb"
+  not_if "cat /etc/selinux/config | grep 'SELINUX=disabled'"
+end
