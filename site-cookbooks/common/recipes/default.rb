@@ -25,7 +25,7 @@ bash "selinux_off" do
   code <<-EOC
     setenforce 0
   EOC
-  not_if "getenforce | grep 'disabled'"
+  not_if "getenforce | grep 'Disabled'"
 end
 
 template "selinux_config" do
