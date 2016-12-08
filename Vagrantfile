@@ -19,6 +19,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = "bento/centos-6.7"
   config.vm.hostname = "januslocal"
 
+  # WEBサーバのポートを指定
   if $is_windows then
     config.vm.network "forwarded_port", guest: 80, host: 80
   else
@@ -123,7 +124,6 @@ Vagrant.configure("2") do |config|
   config.vm.provision "chef_solo" do |chef|
     chef.cookbooks_path = ["cookbooks", "site-cookbooks"]
 
-    #chef.add_recipe "apache"
     chef.add_recipe "common"
     chef.add_recipe "yum-epel"
     chef.add_recipe "yum-remi"
@@ -131,6 +131,7 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "apache"
     chef.add_recipe "php"
     chef.add_recipe "mysql"
+    chef.add_recipe "finish"
 
   end
 
