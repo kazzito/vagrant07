@@ -21,7 +21,7 @@
 
 #%w{php php-devel php-pear php-mbstring php-xml php-mcrypt php-gd php-pecl-xdebug php-opcache php-pecl-apcu php-phpunit-PHPUnit php-mysqlnd}.each do |pkg|
 
-%w{php php-devel php-pear php-mbstring php-xml php-mcrypt php-gd php-opcache php-pecl-apcu php-mysqlnd php-intl}.each do |pkg|
+%w{php php-devel php-pear php-mbstring php-xml php-mcrypt php-gd php-opcache php-pecl-apcu php-phpunit-PHPUnit php-mysqlnd php-intl php-pecl-redis}.each do |pkg|
   package pkg do
     action [ :install, :upgrade ]
     options "--enablerepo=remi,remi-php56"
