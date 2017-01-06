@@ -33,3 +33,7 @@ template "selinux_config" do
   source "selinux_config.erb"
   not_if "cat /etc/selinux/config | grep 'SELINUX=disabled'"
 end
+
+package "unzip" do
+  action [ :install, :upgrade ]
+end
