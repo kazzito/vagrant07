@@ -34,5 +34,3 @@ https://www.vagrantup.com/downloads.html
 ### vagrant up
 
 > vagrant up
-
-ふじしま
