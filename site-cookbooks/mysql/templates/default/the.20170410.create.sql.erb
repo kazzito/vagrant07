@@ -1,0 +1,213 @@
+-- MySQL dump 10.13  Distrib 5.1.73, for redhat-linux-gnu (x86_64)
+--
+-- Host: localhost    Database: the
+-- ------------------------------------------------------
+-- Server version	5.1.73
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `bank`
+--
+
+DROP TABLE IF EXISTS `bank`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bank` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `enabled` tinyint(1) DEFAULT '1',
+  `name` varchar(128) DEFAULT NULL,
+  `name_j` varchar(128) DEFAULT NULL,
+  `page_url` varchar(1024) DEFAULT NULL,
+  `v_start_key` varchar(128) DEFAULT NULL,
+  `v_length` int(11) DEFAULT NULL,
+  `v_regex` varchar(256) DEFAULT NULL,
+  `v_ratio` float DEFAULT '1',
+  `d_start_key` varchar(128) DEFAULT NULL,
+  `d_length` int(11) DEFAULT NULL,
+  `d_regex` varchar(256) DEFAULT NULL,
+  `d_type` int(11) DEFAULT NULL,
+  `image` varchar(128) DEFAULT NULL,
+  `update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `order` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `bank_int`
+--
+
+DROP TABLE IF EXISTS `bank_int`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `bank_int` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `enabled` tinyint(1) DEFAULT '1',
+  `name` varchar(128) DEFAULT NULL,
+  `name_j` varchar(128) DEFAULT NULL,
+  `page_url` varchar(1024) DEFAULT NULL,
+  `v_start_key` varchar(128) DEFAULT NULL,
+  `v_length` int(11) DEFAULT NULL,
+  `v_regex_array` varchar(256) DEFAULT NULL,
+  `v_regex_rate` varchar(256) DEFAULT NULL,
+  `v_index_buy` int(11) DEFAULT NULL,
+  `v_index_sell` int(11) DEFAULT NULL,
+  `v_regex_currency` varchar(256) DEFAULT NULL,
+  `v_ratio` float DEFAULT '1',
+  `d_start_key` varchar(128) DEFAULT NULL,
+  `d_length` int(11) DEFAULT NULL,
+  `d_regex` varchar(256) DEFAULT NULL,
+  `d_type` int(11) DEFAULT NULL,
+  `image` varchar(128) DEFAULT NULL,
+  `update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `order` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `country_int`
+--
+
+DROP TABLE IF EXISTS `country_int`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `country_int` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `currency_int`
+--
+
+DROP TABLE IF EXISTS `currency_int`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `currency_int` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `country_id` int(11) unsigned NOT NULL,
+  `name` varchar(128) DEFAULT NULL,
+  `sign` varchar(8) DEFAULT NULL,
+  `symbol` varchar(8) DEFAULT NULL,
+  `ratio` varchar(32) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `device_token`
+--
+
+DROP TABLE IF EXISTS `device_token`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `device_token` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `token` varchar(64) NOT NULL DEFAULT '',
+  `update` timestamp NULL DEFAULT NULL,
+  `disabled` int(11) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `token` (`token`)
+) ENGINE=MyISAM AUTO_INCREMENT=470 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `device_token_pro`
+--
+
+DROP TABLE IF EXISTS `device_token_pro`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `device_token_pro` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `token` varchar(64) NOT NULL DEFAULT '',
+  `update` timestamp NULL DEFAULT NULL,
+  `disabled` int(11) unsigned DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `token` (`token`)
+) ENGINE=MyISAM AUTO_INCREMENT=131 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `rate`
+--
+
+DROP TABLE IF EXISTS `rate`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rate` (
+  `bank_id` int(11) NOT NULL,
+  `value` float NOT NULL,
+  `ch` float NOT NULL,
+  `bank_update` varchar(32) NOT NULL,
+  `update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`bank_id`,`bank_update`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `rate_int`
+--
+
+DROP TABLE IF EXISTS `rate_int`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rate_int` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `bank_id` int(11) unsigned NOT NULL,
+  `currency_id` int(11) unsigned NOT NULL,
+  `buy_value` float DEFAULT NULL,
+  `sell_value` float DEFAULT NULL,
+  `buy_change_value` float DEFAULT NULL,
+  `sell_change_value` float DEFAULT NULL,
+  `buy_change_ratio` float DEFAULT NULL,
+  `sell_change_ratio` float DEFAULT NULL,
+  `updated` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `bank_id` (`bank_id`),
+  KEY `currency_id` (`currency_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2575815 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `set_thai`
+--
+
+DROP TABLE IF EXISTS `set_thai`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `set_thai` (
+  `s` float NOT NULL,
+  `s100` float NOT NULL,
+  `s50` float NOT NULL,
+  `ch` float NOT NULL,
+  `ch100` float NOT NULL,
+  `ch50` float NOT NULL,
+  `set_update` datetime NOT NULL,
+  `update` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`set_update`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2017-04-10 22:49:53

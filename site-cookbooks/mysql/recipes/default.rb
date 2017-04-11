@@ -109,3 +109,58 @@ template "#{Chef::Config[:file_cache_path]}/create_user.sql" do
   })
   notifies :run, "execute[create_user]", :immediately
 end
+
+# create database the
+the_db_name = node["the"]["db_name"]
+execute "the_create_db" do
+  command "/usr/bin/mysql < #{Chef::Config[:file_cache_path]}/the_create_db.sql"
+  action :nothing
+  not_if "/usr/bin/mysql -D #{the_db_name}"
+end
+
+template "#{Chef::Config[:file_cache_path]}/the_create_db.sql" do
+  owner "root"
+  group "root"
+  mode 0644
+  source "the_create_db.sql.erb"
+  variables({
+    :db_name => the_db_name,
+  })
+  notifies :run, "execute[the_create_db]", :immediately
+end
+
+# create user
+the_user_name     = node["the"]["user"]["name"]
+the_user_password = node["the"]["user"]["password"]
+execute "the_create_user" do
+  command "/usr/bin/mysql < #{Chef::Config[:file_cache_path]}/the_create_user.sql"
+  action :nothing
+  not_if "/usr/bin/mysql -u #{the_user_name} -p#{the_user_password} -D #{db_name}"
+end
+
+template "#{Chef::Config[:file_cache_path]}/the_create_user.sql" do
+  owner "root"
+  group "root"
+  mode 0644
+  source "the_create_user.sql.erb"
+  variables({
+    :db_name => the_db_name,
+    :username => the_user_name,
+    :password => the_user_password,
+  })
+  notifies :run, "execute[the_create_user]", :immediately
+end
+
+template "the.20170410.create.sql" do
+  path "/home/vagrant/the.20170410.create.sql"
+  source "the.20170410.create.sql.erb"
+  not_if { File.exists?("/home/vagrant/the.20170410.create.sql") }
+end
+
+bash "import the" do
+  code <<-EOC
+    mysql -uroot the < /home/vagrant/the.20170410.create.sql
+    touch /home/vagrant/the.20170410.create.sql.imported
+  EOC
+  not_if { File.exists?("/home/vagrant/the.20170410.create.sql.imported") }
+end

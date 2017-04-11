@@ -1,0 +1,25 @@
+;; open emacs at home directory
+(cd "~/")
+
+;; don't show menu bar
+(menu-bar-mode -1)
+
+;; yes/no
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; column-number-mode
+(column-number-mode 1)
+
+;; don't show startup-screan
+(setq inhibit-startup-screen t)
+
+;; show-paren-mode
+(show-paren-mode 1)
+
+;; turn off blink-cursor-mode
+(blink-cursor-mode 0)
+
+;; save backup files to ~/.emacs.d/backup/
+(setq backup-directory-alist 
+      (cons (cons "\\.*$" (expand-file-name "~/.emacs.d/backup")) 
+	        backup-directory-alist))

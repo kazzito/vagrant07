@@ -1,6 +1,6 @@
 {
   "run_list": [
-  	"ruby"
+  	"mysql"
   ],
   "automatic": {
     "ipaddress": "vagrant"

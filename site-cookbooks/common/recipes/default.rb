@@ -37,3 +37,7 @@ end
 package "unzip" do
   action [ :install, :upgrade ]
 end
+
+package "gcc" do
+  action [ :install, :upgrade ]
+end

@@ -130,6 +130,7 @@ Vagrant.configure("2") do |config|
     chef.add_recipe "git"
     chef.add_recipe "apache"
     chef.add_recipe "php"
+    chef.add_recipe "ruby"
     chef.add_recipe "mysql"
     chef.add_recipe "redis"
     chef.add_recipe "finish"
