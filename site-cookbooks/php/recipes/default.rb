@@ -52,3 +52,10 @@ bash 'install_composer' do
     mv /tmp/composer.phar /usr/local/bin/composer
   EOH
 end
+
+bash 'pear install DB' do
+  code <<-EOH
+    pear install DB
+  EOH
+  not_if "pear list | grep 'DB'"
+end

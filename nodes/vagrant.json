@@ -1,6 +1,6 @@
 {
   "run_list": [
-  	"mysql"
+  	"php"
   ],
   "automatic": {
     "ipaddress": "vagrant"
