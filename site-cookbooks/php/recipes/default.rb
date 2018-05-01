@@ -59,3 +59,12 @@ bash 'pear install DB' do
   EOH
   not_if "pear list | grep 'DB'"
 end
+
+bash 'pear install HTTP_request' do
+  code <<-EOH
+    pear install HTTP_request
+  EOH
+  not_if "pear list | grep 'HTTP'"
+end
+
+
