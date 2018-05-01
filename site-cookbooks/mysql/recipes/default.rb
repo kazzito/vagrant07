@@ -112,21 +112,18 @@ end
 
 # create database the
 the_db_name = node["the"]["db_name"]
-execute "the_create_db" do
-  command "/usr/bin/mysql < #{Chef::Config[:file_cache_path]}/the_create_db.sql"
-  action :nothing
-  not_if "/usr/bin/mysql -D #{the_db_name}"
-end
-
-template "#{Chef::Config[:file_cache_path]}/the_create_db.sql" do
-  owner "root"
-  group "root"
-  mode 0644
+template "the_create_db.sql" do
   source "the_create_db.sql.erb"
   variables({
-    :db_name => the_db_name,
+    :the_db_name => the_db_name,
   })
-  notifies :run, "execute[the_create_db]", :immediately
+  path "/home/vagrant/the_create_db.sql"
+  not_if { File.exists?("/home/vagrant/the_create_db.sql") }
+end
+
+execute "the_create_db" do
+  command "/usr/bin/mysql < /home/vagrant/the_create_db.sql"
+  not_if "/usr/bin/mysql -D #{the_db_name}"
 end
 
 # create user
